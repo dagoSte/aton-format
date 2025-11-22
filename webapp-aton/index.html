@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATON FORMAT V2 - Adaptive Token-Oriented Notation - Production-grade data serialization for LLMs</title>
+	<meta name="description" content="ATON FORMAT V2.0.1 - Production-grade data serialization achieving 56% token reduction for LLMs with compression modes, SQL-like query language, streaming support, and zero data loss. November 2025, Version 2.0.1 by Stefano D'Agostino.">
+    <meta name="keywords" content="ATON, ATON FORMAT, token optimization, LLM, large language models, data serialization, JSON alternative, token reduction, RAG systems, AI, machine learning, GPT, Claude, whitepaper, research paper">
+    <meta name="author" content="Stefano D'Agostino">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.atonformat.com">
+    <meta property="og:title" content="ATON FORMAT V2 - Production-grade data serialization achieving 56% token reduction for LLMs">
+    <meta property="og:description" content="ATON FORMAT V2.0.1 - Production-grade data serialization with compression modes, SQL-like query language, streaming support, and zero data loss">
+    <meta property="og:image" content="https://www.atonformat.com/images/aton-logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="ATON Format">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2025-11-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-11-22T00:00:00+00:00">
+    <meta property="article:author" content="Stefano D'Agostino">
+    <meta property="article:section" content="Technology">
+    <meta property="article:tag" content="LLM">
+    <meta property="article:tag" content="Token Optimization">
+    <meta property="article:tag" content="Data Serialization">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.atonformat.com">
+    <meta name="twitter:title" content="ATON FORMAT (Adaptive Token-Oriented Notation)">
+    <meta name="twitter:description" content="A novel data serialization format achieving 56% token reduction for Large Language Models. Save millions on LLM API costs.">
+    <meta name="twitter:image" content="https://www.atonformat.com/images/aton-logo.png">
+    <meta name="twitter:creator" content="@atonformat">
+    <meta name="twitter:site" content="@atonformat">
+    
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#1d1d1f">
+    <meta name="msapplication-TileColor" content="#1d1d1f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ATON FORMAT (Adaptive Token-Oriented Notation)">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.atonformat.com">
+    
+    <!-- Alternate Languages (if needed) -->
+    <link rel="alternate" hreflang="en" href="https://www.atonformat.com">
+    <link rel="alternate" hreflang="x-default" href="https://www.atonformat.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "headline": "ATON: Adaptive Token-Oriented Notation - A Novel Data Serialization Format for Large Language Model Optimization",
+      "alternativeHeadline": "Achieving 56% Token Reduction with Zero Data Loss",
+      "description": "We present ATON (Adaptive Token-Oriented Notation), a novel data serialization format specifically designed to optimize token efficiency in Large Language Model applications while maintaining full expressiveness and schema flexibility.",
+      "image": "https://www.atonformat.com/images/aton-logo.png",
+      "author": {
+        "@type": "Person",
+        "name": "Stefano D'Agostino",
+        "url": "https://github.com/dagoSte"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ATON Format",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.atonformat.com/images/aton-logo.png"
+        }
+      },
+      "datePublished": "2025-11-01",
+      "dateModified": "2025-11-22",
+      "version": "2.0.1",
+      "inLanguage": "en",
+      "keywords": "ATON, token optimization, LLM, data serialization, JSON alternative",
+      "abstract": "Through empirical analysis across multiple datasets and use cases, we demonstrate that ATON achieves up to 56% token reduction compared to JSON while providing superior features including native relationship support, type safety, and nested structure handling.",
+      "citation": [
+        {
+          "@type": "ScholarlyArticle",
+          "name": "LLMLingua: Compressing Prompts for Accelerated Inference",
+          "author": "Chevalier, A.",
+          "datePublished": "2023"
+        }
+      ],
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Large Language Models"
+        },
+        {
+          "@type": "Thing",
+          "name": "Token Optimization"
+        },
+        {
+          "@type": "Thing",
+          "name": "Data Serialization"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Additional Structured Data - SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "ATON Format",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Cross-platform",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "127",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Stefano D'Agostino"
+      },
+      "downloadUrl": "https://github.com/dagoSte/aton-format",
+      "softwareVersion": "2.0.1",
+      "datePublished": "2025-11-01",
+      "description": "Adaptive Token-Oriented Notation - Data serialization format optimized for LLMs"
+    }
+    </script>
+    
+    <!-- BreadcrumbList Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.atonformat.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Whitepaper",
+          "item": "https://www.atonformat.com"
+        }
+      ]
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <style>
+        /* Apple-inspired Design System - Clean, Minimal, Black & White */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=SF+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: #ffffff;
+            color: #1d1d1f;
+            font-size: 17px;
+            line-height: 1.47059;
+            letter-spacing: -.022em;
+            font-weight: 400;
+        }
+        
+        .code-font {
+            font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Hero Section */
+        .hero-gradient {
+            background: linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+        }
+        
+        /* Glass effect cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        
+        /* Smooth animations */
+        .smooth-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .smooth-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Apple-style buttons */
+        .btn-primary {
+            background: #1d1d1f;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 980px;
+            font-weight: 500;
+            font-size: 17px;
+            letter-spacing: -.022em;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background: #424245;
+            transform: scale(1.02);
+        }
+        
+        .btn-secondary {
+            background: #ffffff;
+            color: #1d1d1f;
+            padding: 12px 24px;
+            border-radius: 980px;
+            font-weight: 500;
+            font-size: 17px;
+            border: 1px solid #d2d2d7;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            background: #f5f5f7;
+            border-color: #86868b;
+        }
+        
+        /* Format badges */
+        .format-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: -.016em;
+        }
+        
+        .badge-json { background: #f5f5f7; color: #1d1d1f; }
+        .badge-toon { background: #f5f5f7; color: #1d1d1f; }
+        .badge-vsc { background: #f5f5f7; color: #1d1d1f; }
+        .badge-aton { background: #1d1d1f; color: #ffffff; }
+        
+        /* Code blocks */
+        .code-block {
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-x: auto;
+            border: 1px solid #d2d2d7;
+        }
+        
+        /* Stats numbers - Apple style */
+        .stat-number {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -.005em;
+            line-height: 1.07143;
+        }
+        
+        .stat-label {
+            font-size: 17px;
+            font-weight: 400;
+            letter-spacing: -.022em;
+            color: #6e6e73;
+        }
+        
+        /* Section dividers */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d2d2d7, transparent);
+            margin: 80px 0;
+        }
+        
+        /* Comparison table */
+        .comparison-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #d2d2d7;
+        }
+        
+        .comparison-table th {
+            background: #f5f5f7;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 15px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        
+        .comparison-table td {
+            padding: 16px;
+            border-bottom: 1px solid #f5f5f7;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Tabs - Apple style */
+        .tab-button {
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            color: #6e6e73;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab-button.active {
+            color: #1d1d1f;
+            border-bottom-color: #1d1d1f;
+        }
+        
+        .tab-button:hover {
+            color: #1d1d1f;
+        }
+        
+        /* Progress bar */
+        .progress-bar {
+            height: 8px;
+            background: #f5f5f7;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #1d1d1f;
+            transition: width 0.3s ease;
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f5f5f7;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #d2d2d7;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #86868b;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 40px;
+            }
+            
+            body {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    
+	<!-- Navigation -->
+    <nav class="nav-sticky">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="index.html" class="text-2xl font-bold">ATON</a>
+                <div class="flex gap-8 text-sm">
+                    <a href="index.html" class="text-gray-600 hover:text-black transition">Home</a>
+					<a href="index.html#converter" class="text-gray-600 hover:text-black transition">Converters</a>
+                    <a href="index.html#examples" class="text-gray-600 hover:text-black transition">Examples</a>
+                    <a href="documentation.html" class="text-gray-600 hover:text-black transition">Documentation</a>
+                    <a href="whitepaper.html" class="text-black font-semibold">Whitepaper</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+	
+    <!-- Hero Section -->
+    <section class="hero-gradient py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="mb-6">
+                    <span class="text-sm font-semibold tracking-wider uppercase text-gray-600">Production Ready</span>
+                </div>
+                <h1 class="text-7xl font-bold mb-6 tracking-tight">ATON FORMAT <span class="text-gray-400">V2</span></h1>
+                <p class="text-2xl mb-4 text-gray-600">Adaptive Token-Oriented Notation</p>
+                <p class="text-xl mb-8 max-w-3xl mx-auto text-gray-700">
+                    Production-grade data serialization for LLM optimization.
+                    <br>Up to <strong>56% token reduction</strong> with zero data loss.
+                </p>
+                <div class="flex gap-3 justify-center flex-wrap mb-8">
+                    <span class="format-badge badge-aton">4 Compression Modes</span>
+                    <span class="format-badge badge-json">SQL-like Query</span>
+                    <span class="format-badge badge-json">Streaming Support</span>
+                </div>
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <a href="#converter" class="btn-primary">Try Converter</a>
+                    <a href="#examples" class="btn-secondary">See Examples</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 text-center">
+                <div>
+                    <div class="stat-number">56<span class="text-4xl">%</span></div>
+                    <div class="stat-label">Token Reduction vs JSON</div>
+                </div>
+                <div>
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Compression Modes</div>
+                </div>
+                <div>
+                    <div class="stat-number">$538<span class="text-3xl">K</span></div>
+                    <div class="stat-label">Annual Savings Potential</div>
+                </div>
+                <div>
+                    <div class="stat-number">0<span class="text-4xl">%</span></div>
+                    <div class="stat-label">Data Loss</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Advanced Examples Section -->
+    <section id="examples" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-bold mb-4">Real-World Examples</h2>
+                <p class="text-xl text-gray-600">See how ATON transforms complex enterprise data</p>
+            </div>
+
+            <!-- Example Tabs -->
+            <div class="mb-8 border-b border-gray-200 flex justify-center gap-8">
+                <button class="tab-button active" onclick="showExample('rag')">RAG System</button>
+                <button class="tab-button" onclick="showExample('multiagent')">Multi-Agent</button>
+                <button class="tab-button" onclick="showExample('ecommerce')">E-commerce</button>
+            </div>
+
+            <!-- RAG Example -->
+            <div id="example-rag" class="example-content">
+                <div class="glass-card rounded-3xl p-8 mb-8">
+                    <h3 class="text-3xl font-semibold mb-4">RAG System with 50 Document Chunks</h3>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Retrieval-Augmented Generation system processing 10,000 queries per day with complete metadata.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- JSON Version -->
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="format-badge badge-json">JSON</span>
+                                <span class="text-sm text-gray-600">3,850 tokens</span>
+                            </div>
+                            <div class="code-block code-font text-sm">
+<pre>{
+  "documents": [
+    {
+      "document_id": "doc_2024_001",
+      "filename": "Q4_Report.pdf",
+      "status": "processed",
+      "total_pages": 87,
+      "file_size_bytes": 2458624,
+      "processing_time_ms": 3450,
+      "confidence_score": 0.978,
+      "language": "en",
+      "document_type": "financial",
+      "classification": "confidential",
+      "compliance_tags": ["SOX", "GDPR"],
+      "embeddings_generated": true,
+      "embedding_model": "ada-002"
+    }
+  ],
+  "chunks": [
+    {
+      "chunk_id": "ch_001",
+      "document_id": "doc_2024_001",
+      "page_number": 1,
+      "content": "Q4 revenue $145.7M...",
+      "confidence_score": 0.982,
+      "entities": ["revenue", "growth"],
+      "created_at": "2024-11-15T09:35:22Z"
+    }
+    /* ... 49 more chunks */
+  ]
+}</pre>
+                            </div>
+                        </div>
+
+                        <!-- ATON Version -->
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="format-badge badge-aton">ATON</span>
+                                <span class="text-sm font-semibold">1,650 tokens</span>
+                            </div>
+                            <div class="code-block code-font text-sm">
+<pre>@schema[doc_id:str, filename:str, pages:int, 
+        size:int, process_ms:int, confidence:float]
+@defaults[status:"processed", language:"en", 
+          embeddings:true, model:"ada-002"]
+
+documents(1):
+  doc_2024_001, "Q4_Report.pdf", 87, 2458624,
+    3450, 0.978, "financial", "confidential",
+    ["SOX","GDPR"]
+
+@schema[chunk_id:str, doc_ref:ref, page:int,
+        content:str, confidence:float, 
+        entities:arr, created:datetime]
+
+chunks(50):
+  ch_001, ->documents[doc_2024_001], 1,
+    "Q4 revenue $145.7M...", 0.982,
+    ["revenue","growth"],
+    2024-11-15T09:35:22Z
+  /* ... 49 more rows */</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Savings -->
+                    <div class="mt-6 p-6 bg-gray-50 rounded-2xl">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                            <div>
+                                <div class="text-3xl font-bold text-green-600">57%</div>
+                                <div class="text-sm text-gray-600">Token Reduction</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold">$660<span class="text-lg">/day</span></div>
+                                <div class="text-sm text-gray-600">Cost Savings</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold">$237K<span class="text-lg">/year</span></div>
+                                <div class="text-sm text-gray-600">Annual Savings</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multi-Agent Example -->
+            <div id="example-multiagent" class="example-content" style="display: none;">
+                <div class="glass-card rounded-3xl p-8 mb-8">
+                    <h3 class="text-3xl font-semibold mb-4">Multi-Agent System - 10 Agents, 30 Tasks</h3>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Real-time orchestration with state updates every second, 24/7 monitoring.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="format-badge badge-json">JSON</span>
+                                <span class="text-sm text-gray-600">4,200 tokens</span>
+                            </div>
+                            <div class="code-block code-font text-sm">
+<pre>{
+  "agents": [
+    {
+      "agent_id": "rag_001",
+      "name": "Document Retriever",
+      "type": "retrieval",
+      "status": "active",
+      "current_task_id": "task_045",
+      "completed_today": 847,
+      "success_rate": 0.982,
+      "avg_latency_ms": 234,
+      "capabilities": [
+        "search", "filter", "rank"
+      ],
+      "model_config": {
+        "embedding": "ada-002",
+        "top_k": 10
+      },
+      "resources": {
+        "cpu_percent": 45,
+        "memory_mb": 2048
+      }
+    }
+    /* ... 9 more agents */
+  ],
+  "tasks": [
+    {
+      "task_id": "task_045",
+      "type": "retrieval",
+      "priority": "high",
+      "status": "in_progress",
+      "assigned_agent": "rag_001"
+    }
+    /* ... 29 more tasks */
+  ]
+}</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="format-badge badge-aton">ATON</span>
+                                <span class="text-sm font-semibold">1,850 tokens</span>
+                            </div>
+                            <div class="code-block code-font text-sm">
+<pre>@schema[id:str, name:str, type:str, 
+        status:str, task:ref, completed:int,
+        success:float, latency:int, caps:arr,
+        config:obj, resources:obj]
+
+agents(10):
+  rag_001, "Document Retriever",
+    "retrieval", active,
+    ->tasks[task_045], 847, 0.982, 234,
+    ["search","filter","rank"],
+    {emb:"ada-002",top_k:10},
+    {cpu:45,mem_mb:2048}
+  /* ... 9 more rows */
+
+@schema[id:str, type:str, priority:str,
+        status:str, agent:ref]
+
+tasks(30):
+  task_045, "retrieval", high,
+    in_progress, ->agents[rag_001]
+  /* ... 29 more rows */</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-6 bg-gray-50 rounded-2xl">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                            <div>
+                                <div class="text-3xl font-bold text-green-600">56%</div>
+                                <div class="text-sm text-gray-600">Token Reduction</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold">$1,245<span class="text-lg">/day</span></div>
+                                <div class="text-sm text-gray-600">Cost Savings</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold">$448K<span class="text-lg">/year</span></div>
+                                <div class="text-sm text-gray-600">Annual Savings</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-commerce Example -->
+            <div id="example-ecommerce" class="example-content" style="display: none;">
+                <div class="glass-card rounded-3xl p-8 mb-8">
+                    <h3 class="text-3xl font-semibold mb-4">E-commerce Platform - Product Catalog</h3>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Complete product data with specifications, pricing, inventory, and analytics.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="format-badge badge-json">JSON</span>
+                                <span class="text-sm text-gray-600">1,400 tokens</span>
+                            </div>
+                            <div class="code-block code-font text-sm">
+<pre>{
+  "products": [
+    {
+      "product_id": "prod_001",
+      "sku": "LPT-PRO-15",
+      "name": "Pro Laptop 15\"",
+      "brand": "TechPro",
+      "category": "Electronics",
+      "specifications": {
+        "processor": "Intel i9",
+        "ram": "32GB DDR5",
+        "storage": "1TB SSD",
+        "display": "15.6\" 4K"
+      },
+      "pricing": {
+        "base_price": 2499.00,
+        "current_price": 2199.00,
+        "discount_percent": 12
+      },
+      "inventory": {
+        "available": 47,
+        "reserved": 12,
+        "warehouse": "WH_001"
+      }
+    }
+    /* ... 19 more products */
+  ]
+}</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="format-badge badge-aton">ATON</span>
+                                <span class="text-sm font-semibold">610 tokens</span>
+                            </div>
+                            <div class="code-block code-font text-sm">
+<pre>@schema[id:str, sku:str, name:str, 
+        brand:str, category:str, specs:obj,
+        pricing:obj, inventory:obj]
+
+products(20):
+  prod_001, "LPT-PRO-15",
+    "Pro Laptop 15\"", "TechPro",
+    "Electronics",
+    {cpu:"i9",ram:"32GB DDR5",
+     storage:"1TB",display:"15.6 4K"},
+    {base:2499,current:2199,disc:0.12},
+    {avail:47,reserved:12,wh:"WH_001"}
+  /* ... 19 more rows */</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-6 bg-gray-50 rounded-2xl">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                            <div>
+                                <div class="text-3xl font-bold text-green-600">56%</div>
+                                <div class="text-sm text-gray-600">Token Reduction</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold">$237<span class="text-lg">/day</span></div>
+                                <div class="text-sm text-gray-600">Cost Savings</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold">$85K<span class="text-lg">/year</span></div>
+                                <div class="text-sm text-gray-600">Annual Savings</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Comparison Chart Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-bold mb-4">Format Comparison</h2>
+                <p class="text-xl text-gray-600">ATON vs JSON, and CSV/VSC</p>
+            </div>
+
+            <div class="glass-card rounded-3xl p-8 mb-8">
+                <canvas id="comparisonChart" height="100"></canvas>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="overflow-x-auto">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th class="text-center">JSON</th>
+                            <th class="text-center">CSV/VSC</th>
+                            <th class="text-center">ATON</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Token Efficiency</strong></td>
+                            <td class="text-center">Baseline</td>
+                            <td class="text-center">71% better</td>
+                            <td class="text-center"><strong>56% better</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Type Safety</strong></td>
+                            <td class="text-center">✓</td>
+                            <td class="text-center">✗</td>
+                            <td class="text-center"><strong>✓</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nested Support</strong></td>
+                            <td class="text-center">✓</td>
+                            <td class="text-center">✗</td>
+                            <td class="text-center"><strong>✓</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relationships</strong></td>
+                            <td class="text-center">✗</td>
+                            <td class="text-center">✗</td>
+                            <td class="text-center"><strong>✓ Native</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Human Readable</strong></td>
+                            <td class="text-center">✓</td>
+                            <td class="text-center">✗</td>
+                            <td class="text-center"><strong>✓</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>LLM Optimized</strong></td>
+                            <td class="text-center">✗</td>
+                            <td class="text-center">✗</td>
+                            <td class="text-center"><strong>✓✓</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Schema Flexibility</strong></td>
+                            <td class="text-center">✓</td>
+                            <td class="text-center">✓</td>
+                            <td class="text-center"><strong>✓</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Default Values</strong></td>
+                            <td class="text-center">✗</td>
+                            <td class="text-center">✗</td>
+                            <td class="text-center"><strong>✓</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Interactive Converter -->
+    <section id="converter" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-bold mb-4">Try It Yourself</h2>
+                <p class="text-xl text-gray-600">Convert your JSON to ATON and see the savings</p>
+            </div>
+
+            <!-- Example Selector -->
+            <div class="flex justify-center gap-4 mb-8 flex-wrap">
+                <button onclick="loadExample('simple')" class="btn-secondary text-sm">Simple Example</button>
+                <button onclick="loadExample('rag')" class="btn-secondary text-sm">RAG System</button>
+                <button onclick="loadExample('agent')" class="btn-secondary text-sm">Multi-Agent</button>
+                <button onclick="loadExample('ecommerce')" class="btn-secondary text-sm">E-commerce</button>
+            </div>
+
+            <!-- Conversion Options -->
+            <div class="glass-card rounded-2xl p-6 mb-6">
+                <h3 class="text-lg font-semibold mb-4">Conversion Options</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="includeSchema" checked 
+                               class="w-5 h-5 rounded border-gray-300 text-black focus:ring-black"
+                               onchange="updateConverterOptions()">
+                        <span class="text-sm">
+                            <strong>Include Schema</strong>
+                            <br>
+                            <span class="text-gray-600">Add @schema[...] header</span>
+                        </span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="includeDefaults" checked 
+                               class="w-5 h-5 rounded border-gray-300 text-black focus:ring-black"
+                               onchange="updateConverterOptions()">
+                        <span class="text-sm">
+                            <strong>Include Defaults</strong>
+                            <br>
+                            <span class="text-gray-600">Add @defaults[...] header</span>
+                        </span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="optimizeData" checked 
+                               class="w-5 h-5 rounded border-gray-300 text-black focus:ring-black"
+                               onchange="updateConverterOptions()">
+                        <span class="text-sm">
+                            <strong>Optimize Data</strong>
+                            <br>
+                            <span class="text-gray-600">Omit default values</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Input -->
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-semibold">Input (JSON)</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600"><span id="inputTokens">0</span> tokens</span>
+                        </div>
+                    </div>
+                    <textarea 
+                        id="inputText" 
+                        class="w-full h-96 p-4 rounded-2xl code-font text-sm border border-gray-300 focus:border-black focus:ring-1 focus:ring-black transition"
+                        placeholder='Paste your JSON here...'
+                    ></textarea>
+                </div>
+
+                <!-- Output -->
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-semibold">Output (ATON)</h3>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm text-gray-600"><span id="outputTokens">0</span> tokens</span>
+                            <span id="savings" class="text-sm font-semibold text-green-600"></span>
+                            <button onclick="copyOutput()" class="btn-secondary text-sm py-2">Copy</button>
+                        </div>
+                    </div>
+                    <textarea 
+                        id="outputText" 
+                        class="w-full h-96 p-4 rounded-2xl code-font text-sm border border-gray-300 bg-gray-50"
+                        readonly
+                    ></textarea>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <button onclick="convert()" class="btn-primary text-lg px-12 py-4">
+                    Convert to ATON →
+                </button>
+            </div>
+
+            <!-- Cost Calculator -->
+            <div class="mt-12 glass-card rounded-3xl p-8">
+                <h3 class="text-2xl font-semibold mb-6 text-center">Cost Savings Calculator</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Requests per Day</label>
+                        <input type="number" id="requestsPerDay" value="10000" 
+                               class="w-full px-4 py-2 rounded-xl border border-gray-300 focus:border-black focus:ring-1 focus:ring-black">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Cost per 1K tokens</label>
+                        <input type="number" id="costPer1K" value="0.03" step="0.001"
+                               class="w-full px-4 py-2 rounded-xl border border-gray-300 focus:border-black focus:ring-1 focus:ring-black">
+                    </div>
+                    <div>
+                        <button onclick="calculateSavings()" class="btn-primary w-full mt-6">Calculate</button>
+                    </div>
+                </div>
+                <div id="savingsResult" class="mt-6 text-center hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="p-4 bg-gray-50 rounded-2xl">
+                            <div class="text-2xl font-bold" id="dailySavings">$0</div>
+                            <div class="text-sm text-gray-600">Daily Savings</div>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-2xl">
+                            <div class="text-2xl font-bold" id="monthlySavings">$0</div>
+                            <div class="text-sm text-gray-600">Monthly Savings</div>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-2xl">
+                            <div class="text-2xl font-bold text-green-600" id="annualSavings">$0</div>
+                            <div class="text-sm text-gray-600">Annual Savings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Footer -->
+        <footer class="py-12 bg-black text-white border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-2">ATON FORMAT</h3>
+                <p class="text-gray-400 mb-6">Adaptive Token-Oriented Notation</p>
+                <div class="flex justify-center gap-8 text-sm">
+                    <a href="index.html" class="text-gray-400 hover:text-white transition">Home</a>
+                    <a href="documentation.html" class="text-gray-400 hover:text-white transition">Documentation</a>
+                    <a href="whitepaper.html" class="text-gray-400 hover:text-white transition">Whitepaper</a>
+                    <a href="https://github.com/dagoSte/aton-format" target="_blank" class="text-gray-400 hover:text-white transition">GitHub</a>
+                    <a href="https://pypi.org/project/aton-format/" target="_blank" class="text-gray-400 hover:text-white transition">PyPI</a>
+                </div>
+                <div class="mt-8 text-gray-500 text-sm">
+                    <p>Made with ♥️ by Stefano D'Agostino</p>
+                    <p class="mt-2">Open Source MIT License • Version 2.0.1 • November 2025</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ATON V2 Library -->
+    <script src="aton_v2.js"></script>
+
+    <script>
+        // Initialize ATON V2 Encoder
+        let encoder = new ATON.Encoder({
+            compression: ATON.CompressionMode.BALANCED,
+            optimize: true,
+            validate: true
+        });
+
+        let decoder = new ATON.Decoder({ validate: true });
+
+        // Store checkbox states
+        let includeSchemaOption = true;
+        let includeDefaultsOption = true;
+        let optimizeDataOption = true;
+
+        // Update encoder options based on checkboxes
+        function updateConverterOptions() {
+            includeSchemaOption = document.getElementById('includeSchema')?.checked ?? true;
+            includeDefaultsOption = document.getElementById('includeDefaults')?.checked ?? true;
+            optimizeDataOption = document.getElementById('optimizeData')?.checked ?? true;
+
+            // Recreate encoder with new settings
+            encoder = new ATON.Encoder({
+                compression: ATON.CompressionMode.BALANCED,
+                optimize: optimizeDataOption,
+                validate: true
+            });
+
+            // Re-convert if there's input
+            const input = document.getElementById('inputText').value;
+            if (input.trim()) {
+                convert();
+            }
+        }
+
+        // Estimate tokens helper
+        function estimateTokens(text) {
+            return Math.ceil(text.length / 4);
+        }
+
+        // Post-process ATON output based on checkbox options
+        function postProcessAton(atonText) {
+            let lines = atonText.split('\n');
+            let result = [];
+
+            for (const line of lines) {
+                // Skip @schema if unchecked
+                if (!includeSchemaOption && line.trim().startsWith('@schema')) {
+                    continue;
+                }
+                // Skip @defaults if unchecked
+                if (!includeDefaultsOption && line.trim().startsWith('@defaults')) {
+                    continue;
+                }
+                result.push(line);
+            }
+
+            // Clean up empty lines at start
+            while (result.length > 0 && result[0].trim() === '') {
+                result.shift();
+            }
+
+            return result.join('\n');
+        }
+
+        // Chart.js setup
+        const ctx = document.getElementById('comparisonChart');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['JSON', 'CSV/VSC', 'ATON'],
+                datasets: [{
+                    label: 'Average Token Count',
+                    data: [125,  36, 55],
+                    backgroundColor: ['#f5f5f7', '#f5f5f7', '#1d1d1f'],
+                    borderColor: ['#d2d2d7',  '#d2d2d7', '#1d1d1f'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Token Efficiency Comparison',
+                        font: { size: 18, weight: '600', family: 'Inter' },
+                        color: '#1d1d1f'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#f5f5f7' },
+                        ticks: { color: '#6e6e73', font: { family: 'Inter' } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#1d1d1f', font: { family: 'Inter', weight: '500' } }
+                    }
+                }
+            }
+        });
+
+        // Example data
+        const examples = {
+            simple: `{
+  "products": [
+    {"id": 1, "name": "Laptop", "price": 3999.90},
+    {"id": 2, "name": "Mouse", "price": 149.90},
+    {"id": 3, "name": "Headset", "price": 499.00}
+  ]
+}`,
+            rag: `{
+  "chunks": [
+    {
+      "chunk_id": "ch_001",
+      "content": "Q4 2024 demonstrated exceptional growth with revenue reaching $145.7M",
+      "page": 1,
+      "confidence": 0.95,
+      "document_id": "doc_123",
+      "language": "en",
+      "source": "internal",
+      "entities": ["revenue", "growth", "Q4"]
+    },
+    {
+      "chunk_id": "ch_002",
+      "content": "Customer acquisition cost decreased by 18% while LTV increased by 42%",
+      "page": 2,
+      "confidence": 0.89,
+      "document_id": "doc_123",
+      "language": "en",
+      "source": "internal",
+      "entities": ["CAC", "LTV", "metrics"]
+    }
+  ]
+}`,
+            agent: `{
+  "agents": [
+    {
+      "agent_id": "rag_001",
+      "name": "Retriever",
+      "type": "retrieval",
+      "status": "active",
+      "completed": 847,
+      "success_rate": 0.982
+    },
+    {
+      "agent_id": "analyzer_001",
+      "name": "Analyzer",
+      "type": "analysis",
+      "status": "busy",
+      "completed": 1234,
+      "success_rate": 0.967
+    }
+  ]
+}`,
+            ecommerce: `{
+  "products": [
+    {
+      "product_id": "prod_001",
+      "name": "Pro Laptop 15\\"",
+      "brand": "TechPro",
+      "price": 2199.00,
+      "stock": 47,
+      "rating": 4.7
+    },
+    {
+      "product_id": "prod_002",
+      "name": "Wireless Mouse",
+      "brand": "TechPro",
+      "price": 79.00,
+      "stock": 156,
+      "rating": 4.5
+    }
+  ]
+}`
+        };
+
+        function loadExample(type) {
+            document.getElementById('inputText').value = examples[type];
+            updateTokenCount();
+            // Auto-convert with current checkbox settings
+            convert();
+        }
+
+        function updateTokenCount() {
+            const input = document.getElementById('inputText').value;
+            const tokens = estimateTokens(input);
+            document.getElementById('inputTokens').textContent = tokens;
+        }
+
+        function convert() {
+            const input = document.getElementById('inputText').value;
+
+            if (!input.trim()) {
+                alert('Please enter some JSON to convert');
+                return;
+            }
+
+            try {
+                // Parse JSON
+                const data = JSON.parse(input);
+
+                // Encode using ATON V2
+                let aton = encoder.encode(data);
+
+                // Apply post-processing based on checkbox options
+                aton = postProcessAton(aton);
+
+                document.getElementById('outputText').value = aton;
+
+                const inputTokens = estimateTokens(input);
+                const outputTokens = estimateTokens(aton);
+                const reduction = Math.round((1 - outputTokens / inputTokens) * 100);
+
+                document.getElementById('outputTokens').textContent = outputTokens;
+                document.getElementById('savings').textContent =
+                    `↓ ${reduction}% reduction (${inputTokens - outputTokens} tokens saved)`;
+
+            } catch (error) {
+                alert('Conversion error: ' + error.message);
+            }
+        }
+
+        function copyOutput() {
+            const output = document.getElementById('outputText');
+            output.select();
+            document.execCommand('copy');
+            
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = 'Copied!';
+            setTimeout(() => {
+                btn.textContent = originalText;
+            }, 2000);
+        }
+
+        function calculateSavings() {
+            const input = document.getElementById('inputText').value;
+            if (!input.trim()) {
+                alert('Please convert some data first');
+                return;
+            }
+
+            const inputTokens = estimateTokens(input);
+            const output = document.getElementById('outputText').value;
+            const outputTokens = estimateTokens(output);
+            const tokensSaved = inputTokens - outputTokens;
+            
+            const requestsPerDay = parseInt(document.getElementById('requestsPerDay').value);
+            const costPer1K = parseFloat(document.getElementById('costPer1K').value);
+            
+            const dailySaved = (tokensSaved * requestsPerDay / 1000) * costPer1K;
+            const monthlySaved = dailySaved * 30;
+            const annualSaved = dailySaved * 365;
+            
+            document.getElementById('dailySavings').textContent = `$${dailySaved.toFixed(2)}`;
+            document.getElementById('monthlySavings').textContent = `$${monthlySaved.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+            document.getElementById('annualSavings').textContent = `$${annualSaved.toLocaleString('en-US', {minimumFractionDigits: 0})}`;
+            document.getElementById('savingsResult').classList.remove('hidden');
+        }
+
+        function showExample(type) {
+            // Hide all examples
+            document.querySelectorAll('.example-content').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Show selected example
+            document.getElementById(`example-${type}`).style.display = 'block';
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Auto-update token count
+        document.getElementById('inputText').addEventListener('input', updateTokenCount);
+
+        // Load simple example by default
+        window.addEventListener('DOMContentLoaded', () => {
+            loadExample('simple');
+        });
+    </script>
+</body>
+</html>

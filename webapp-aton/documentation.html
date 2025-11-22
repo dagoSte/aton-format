@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATON V2 Documentation - Complete API Reference</title>
+    <meta name="description" content="Complete documentation for ATON V2 - Production-grade data serialization with compression modes, query language, and streaming support">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #1d1d1f;
+            background: #ffffff;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        header {
+            background: #1d1d1f;
+            color: #ffffff;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        header p {
+            font-size: 20px;
+            color: #d2d2d7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .doc-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            margin-bottom: 80px;
+        }
+        
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        .sidebar nav {
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .sidebar h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #86868b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+        
+        .sidebar li {
+            margin-bottom: 8px;
+        }
+        
+        .sidebar a {
+            color: #1d1d1f;
+            text-decoration: none;
+            font-size: 15px;
+            display: block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #ffffff;
+            color: #667eea;
+        }
+        
+        .content {
+            max-width: 900px;
+        }
+        
+        .content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f5f5f7;
+        }
+        
+        .content h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+        
+        .content h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+        
+        .content p {
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+        
+        .code-block {
+            background: #1d1d1f;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            color: #ffffff;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .inline-code {
+            background: #f5f5f7;
+            color: #667eea;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 14px;
+        }
+        
+        .api-method {
+            background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .method-signature {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 16px;
+        }
+        
+        .param-list {
+            margin-top: 16px;
+        }
+        
+        .param {
+            margin-bottom: 12px;
+        }
+        
+        .param-name {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .param-type {
+            font-family: 'SF Mono', Monaco, monospace;
+            color: #86868b;
+            font-size: 14px;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .note-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #856404;
+        }
+        
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .warning-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #721c24;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .feature-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .feature-description {
+            font-size: 14px;
+            color: #6e6e73;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        th {
+            background: #f5f5f7;
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6e6e73;
+        }
+        
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #f5f5f7;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            background: #f5f5f7;
+            padding: 40px 0;
+            margin-top: 80px;
+            text-align: center;
+            color: #6e6e73;
+        }
+        
+        @media (max-width: 1024px) {
+            .doc-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+    /* Navigation */
+        .main-nav {
+            background: #ffffff;
+            border-bottom: 1px solid #d2d2d7;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .main-nav .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 52px;
+        }
+
+        .main-nav a.logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1d1d1f;
+            text-decoration: none;
+        }
+
+        .main-nav .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .main-nav .nav-links a {
+            font-size: 14px;
+            color: #6e6e73;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .main-nav .nav-links a:hover {
+            color: #1d1d1f;
+        }
+
+        .main-nav .nav-links a.active {
+            color: #1d1d1f;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">ATON</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#converter">Converter</a>
+                <a href="index.html#examples">Examples</a>
+                <a href="documentation.html" class="active">Documentation</a>
+                <a href="whitepaper.html">Whitepaper</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <div class="version-badge">VERSION 2.0.1</div>
+            <h1>ATON V2 Documentation</h1>
+            <p>Complete API reference for production-grade data serialization</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="doc-layout">
+            <aside class="sidebar">
+                <nav>
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#quick-start">Quick Start</a></li>
+                        <li><a href="#whats-new">What's New in V2</a></li>
+                    </ul>
+                    
+                    <h3>Core API</h3>
+                    <ul>
+                        <li><a href="#encoder">ATONEncoder</a></li>
+                        <li><a href="#decoder">ATONDecoder</a></li>
+                        <li><a href="#stream-encoder">ATONStreamEncoder</a></li>
+                        <li><a href="#query-engine">ATONQueryEngine</a></li>
+                    </ul>
+                    
+                    <h3>Compression</h3>
+                    <ul>
+                        <li><a href="#compression-modes">Compression Modes</a></li>
+                    </ul>
+                    
+                    <h3>Query Language</h3>
+                    <ul>
+                        <li><a href="#query-syntax">Query Syntax</a></li>
+                        <li><a href="#operators">Operators</a></li>
+                        <li><a href="#query-examples">Examples</a></li>
+                    </ul>
+                    
+                    <h3>Advanced</h3>
+                    <ul>
+                        <li><a href="#streaming">Streaming</a></li>
+                        <li><a href="#error-handling">Error Handling</a></li>
+                        <li><a href="#performance">Performance</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="content">
+                <h2 id="installation">Installation</h2>
+                
+                <h3>Python</h3>
+                <div class="code-block">
+                    <pre>pip install aton-format</pre>
+                </div>
+                
+                <h3>JavaScript</h3>
+                <div class="code-block">
+                    <pre>npm install aton-format
+# or
+yarn add aton-format</pre>
+                </div>
+                
+                <h3>From Source</h3>
+                <div class="code-block">
+                    <pre>git clone https://github.com/dagoSte/aton-format.git
+cd aton-format
+pip install -e .</pre>
+                </div>
+                
+                <h2 id="quick-start">Quick Start</h2>
+                
+                <h3>Python Example</h3>
+                <div class="code-block">
+                    <pre>from aton_format import ATONEncoder, ATONDecoder, CompressionMode
+
+# Initialize encoder with compression
+encoder = ATONEncoder(
+    compression=CompressionMode.BALANCED,
+    optimize=True
+)
+
+# Your data
+data = {
+    "employees": [
+        {"id": 1, "name": "Alice", "salary": 95000, "active": True},
+        {"id": 2, "name": "Bob", "salary": 92000, "active": True},
+        {"id": 3, "name": "Carol", "salary": 110000, "active": False}
+    ]
+}
+
+# Encode to ATON
+aton_text = encoder.encode(data)
+print(aton_text)
+
+# Decode back to original
+decoder = ATONDecoder()
+original = decoder.decode(aton_text)
+
+assert data == original  # Perfect round-trip!</pre>
+                </div>
+                
+                <h3>JavaScript Example</h3>
+                <div class="code-block">
+                    <pre>const ATON = require('aton-format');
+
+// Initialize encoder
+const encoder = new ATON.Encoder({
+    compression: ATON.CompressionMode.BALANCED,
+    optimize: true
+});
+
+// Your data
+const data = {
+    employees: [
+        {id: 1, name: "Alice", salary: 95000, active: true},
+        {id: 2, name: "Bob", salary: 92000, active: true},
+        {id: 3, name: "Carol", salary: 110000, active: false}
+    ]
+};
+
+// Encode to ATON
+const atonText = encoder.encode(data);
+console.log(atonText);
+
+// Decode back
+const decoder = new ATON.Decoder();
+const original = decoder.decode(atonText);
+
+console.assert(JSON.stringify(data) === JSON.stringify(original));</pre>
+                </div>
+                
+                <h2 id="whats-new">What's New in V2</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-title">[*] Compression Modes</div>
+                        <div class="feature-description">
+                            Four intelligent modes: Fast, Balanced, Ultra, and Adaptive
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">[Q] Query Language</div>
+                        <div class="feature-description">
+                            SQL-like queries with full AST parser and evaluation
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">[S] Streaming Support</div>
+                        <div class="feature-description">
+                            Memory-efficient processing of large datasets
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">[!] Error Handling</div>
+                        <div class="feature-description">
+                            Comprehensive exception hierarchy and validation
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 id="encoder">ATONEncoder</h2>
+                
+                <p>The main encoder class for converting data to ATON format.</p>
+                
+                <div class="api-method">
+                    <div class="method-signature">
+                        ATONEncoder(optimize=True, compression='balanced', queryable=False, validate=True)
+                    </div>
+                    
+                    <div class="param-list">
+                        <div class="param">
+                            <span class="param-name">optimize</span> 
+                            <span class="param-type">bool</span> - 
+                            Enable optimization (schemas, defaults)
+                        </div>
+                        <div class="param">
+                            <span class="param-name">compression</span> 
+                            <span class="param-type">str | CompressionMode</span> - 
+                            Compression strategy: 'fast', 'balanced', 'ultra', or 'adaptive'
+                        </div>
+                        <div class="param">
+                            <span class="param-name">queryable</span> 
+                            <span class="param-type">bool</span> - 
+                            Generate query metadata
+                        </div>
+                        <div class="param">
+                            <span class="param-name">validate</span> 
+                            <span class="param-type">bool</span> - 
+                            Validate input data
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Methods</h3>
+                
+                <div class="api-method">
+                    <div class="method-signature">
+                        encode(data, compress=True) -&gt; str
+                    </div>
+                    <p>Encode data to ATON format</p>
+                    <div class="param-list">
+                        <div class="param">
+                            <span class="param-name">data</span> 
+                            <span class="param-type">dict</span> - 
+                            Data to encode
+                        </div>
+                        <div class="param">
+                            <span class="param-name">compress</span> 
+                            <span class="param-type">bool</span> - 
+                            Apply compression
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-method">
+                    <div class="method-signature">
+                        encode_with_query(data, query) -&gt; str
+                    </div>
+                    <p>Encode data after applying query filter</p>
+                    <div class="param-list">
+                        <div class="param">
+                            <span class="param-name">data</span> 
+                            <span class="param-type">dict</span> - 
+                            Data to encode
+                        </div>
+                        <div class="param">
+                            <span class="param-name">query</span> 
+                            <span class="param-type">str</span> - 
+                            Query string (SQL-like)
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Example</h3>
+                <div class="code-block">
+                    <pre>encoder = ATONEncoder(
+    compression=CompressionMode.ADAPTIVE,
+    optimize=True,
+    queryable=True
+)
+
+result = encoder.encode_with_query(
+    data,
+    "employees WHERE salary > 100000 ORDER BY salary DESC"
+)</pre>
+                </div>
+                
+                <h2 id="decoder">ATONDecoder</h2>
+                
+                <p>Decoder class for converting ATON format back to original data.</p>
+                
+                <div class="api-method">
+                    <div class="method-signature">
+                        ATONDecoder(validate=True)
+                    </div>
+                    
+                    <div class="param-list">
+                        <div class="param">
+                            <span class="param-name">validate</span> 
+                            <span class="param-type">bool</span> - 
+                            Validate decoded data structure
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Methods</h3>
+                
+                <div class="api-method">
+                    <div class="method-signature">
+                        decode(aton_text) -&gt; dict
+                    </div>
+                    <p>Decode ATON format to original data</p>
+                    <div class="param-list">
+                        <div class="param">
+                            <span class="param-name">aton_text</span> 
+                            <span class="param-type">str</span> - 
+                            ATON formatted string
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+                    <pre>decoder = ATONDecoder(validate=True)
+data = decoder.decode(aton_text)
+
+# Perfect round-trip guaranteed
+assert original_data == data</pre>
+                </div>
+                
+                <h2 id="stream-encoder">ATONStreamEncoder</h2>
+                
+                <p>Memory-efficient encoder for processing large datasets in chunks.</p>
+                
+                <div class="api-method">
+                    <div class="method-signature">
+                        ATONStreamEncoder(chunk_size=100, compression='balanced')
+                    </div>
+                    
+                    <div class="param-list">
+                        <div class="param">
+                            <span class="param-name">chunk_size</span> 
+                            <span class="param-type">int</span> - 
+                            Number of records per chunk
+                        </div>
+                        <div class="param">
+                            <span class="param-name">compression</span> 
+                            <span class="param-type">str | CompressionMode</span> - 
+                            Compression mode to use
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Methods</h3>
+                
+                <div class="api-method">
+                    <div class="method-signature">
+                        stream_encode(data, table_name=None) -&gt; Iterator[dict]
+                    </div>
+                    <p>Stream encode data in chunks with schema caching</p>
+                    <div class="param-list">
+                        <div class="param">
+                            <span class="param-name">data</span> 
+                            <span class="param-type">dict</span> - 
+                            Data with single table
+                        </div>
+                        <div class="param">
+                            <span class="param-name">table_name</span> 
+                            <span class="param-type">str</span> - 
+                            Optional table name
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Example</h3>
+                <div class="code-block">
+                    <pre>stream_encoder = ATONStreamEncoder(
+    chunk_size=1000,
+    compression=CompressionMode.ULTRA
+)
+
+# Process 100K records in chunks
+data = {"products": large_product_list}
+
+for chunk_info in stream_encoder.stream_encode(data):
+    print(f"Chunk {chunk_info['chunk_id']}/{chunk_info['total_chunks']}")
+    print(f"Records: {chunk_info['metadata']['records_in_chunk']}")
+    
+    # Process chunk
+    process_chunk(chunk_info['data'])
+    
+    # Memory stays constant!</pre>
+                </div>
+                
+                <h2 id="query-engine">ATONQueryEngine</h2>
+                
+                <p>SQL-like query engine with full AST parser and evaluation.</p>
+                
+                <div class="api-method">
+                    <div class="method-signature">
+                        query(data, query_string) -&gt; list
+                    </div>
+                    <p>Execute query on data</p>
+                    <div class="param-list">
+                        <div class="param">
+                            <span class="param-name">data</span> 
+                            <span class="param-type">dict</span> - 
+                            Data dictionary
+                        </div>
+                        <div class="param">
+                            <span class="param-name">query_string</span> 
+                            <span class="param-type">str</span> - 
+                            SQL-like query
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Example</h3>
+                <div class="code-block">
+                    <pre>from aton_format import ATONQueryEngine
+
+engine = ATONQueryEngine()
+
+# Complex query
+results = engine.query(
+    data,
+    """
+    products WHERE 
+        (price BETWEEN 100 AND 500) 
+        AND category IN ('Electronics', 'Computers')
+        AND name LIKE '%Premium%'
+    ORDER BY rating DESC
+    LIMIT 20
+    """
+)
+
+# Results are filtered, sorted, and paginated
+for product in results:
+    print(product['name'], product['price'])</pre>
+                </div>
+                
+                <h2 id="compression-modes">Compression Modes</h2>
+                
+                <p>ATON V2 provides four compression strategies, each optimized for different use cases.</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mode</th>
+                            <th>Speed</th>
+                            <th>Compression</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="inline-code">FAST</span></td>
+                            <td>*****</td>
+                            <td>**</td>
+                            <td>Real-time applications, low latency requirements</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">BALANCED</span></td>
+                            <td>****</td>
+                            <td>***</td>
+                            <td>General purpose, recommended default</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">ULTRA</span></td>
+                            <td>***</td>
+                            <td>*****</td>
+                            <td>Batch processing, storage optimization</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">ADAPTIVE</span></td>
+                            <td>****</td>
+                            <td>****</td>
+                            <td>Mixed workloads, automatic optimization</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Fast Mode</h3>
+                <p>Dictionary compression only. Optimized for speed.</p>
+                <div class="code-block">
+                    <pre>encoder = ATONEncoder(compression=CompressionMode.FAST)
+# Fastest encoding, moderate compression</pre>
+                </div>
+                
+                <h3>Balanced Mode</h3>
+                <p>Dictionary + selective algorithms. Best for most use cases.</p>
+                <div class="code-block">
+                    <pre>encoder = ATONEncoder(compression=CompressionMode.BALANCED)
+# Optimal balance, recommended default</pre>
+                </div>
+                
+                <h3>Ultra Mode</h3>
+                <p>All compression algorithms. Maximum token reduction.</p>
+                <div class="code-block">
+                    <pre>encoder = ATONEncoder(compression=CompressionMode.ULTRA)
+# Maximum compression for storage/batch</pre>
+                </div>
+                
+                <h3>Adaptive Mode</h3>
+                <p>AI-driven mode selection based on data patterns.</p>
+                <div class="code-block">
+                    <pre>encoder = ATONEncoder(compression=CompressionMode.ADAPTIVE)
+# Automatically chooses best strategy</pre>
+                </div>
+                
+                <h2 id="query-syntax">Query Syntax</h2>
+                
+                <p>ATON V2 supports a SQL-like query language for filtering and transforming data before encoding.</p>
+                
+                <h3>Basic Syntax</h3>
+                <div class="code-block">
+                    <pre>[SELECT fields] table_name [WHERE conditions] [ORDER BY field direction] [LIMIT n] [OFFSET m]</pre>
+                </div>
+                
+                <h3>WHERE Clauses</h3>
+                <div class="code-block">
+                    <pre># Simple condition
+employees WHERE salary > 100000
+
+# Multiple conditions
+employees WHERE salary > 100000 AND active = true
+
+# Complex logic
+employees WHERE (role = 'Engineer' OR role = 'Manager') 
+         AND salary > 80000</pre>
+                </div>
+                
+                <h2 id="operators">Operators</h2>
+                
+                <h3>Comparison Operators</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operator</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="inline-code">=</span></td>
+                            <td>Equal to</td>
+                            <td><span class="inline-code">status = 'active'</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">!=</span></td>
+                            <td>Not equal to</td>
+                            <td><span class="inline-code">department != 'HR'</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">&lt;</span></td>
+                            <td>Less than</td>
+                            <td><span class="inline-code">age &lt; 30</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">&gt;</span></td>
+                            <td>Greater than</td>
+                            <td><span class="inline-code">salary &gt; 50000</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">&lt;=</span></td>
+                            <td>Less than or equal</td>
+                            <td><span class="inline-code">quantity &lt;= 100</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">&gt;=</span></td>
+                            <td>Greater than or equal</td>
+                            <td><span class="inline-code">rating &gt;= 4.0</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Special Operators</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operator</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="inline-code">IN</span></td>
+                            <td>Value in list</td>
+                            <td><span class="inline-code">status IN ('active', 'pending')</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">NOT IN</span></td>
+                            <td>Value not in list</td>
+                            <td><span class="inline-code">role NOT IN ('admin', 'root')</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">LIKE</span></td>
+                            <td>Pattern matching</td>
+                            <td><span class="inline-code">name LIKE '%Smith%'</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">BETWEEN</span></td>
+                            <td>Range check</td>
+                            <td><span class="inline-code">price BETWEEN 100 AND 500</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Logical Operators</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operator</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="inline-code">AND</span></td>
+                            <td>Both conditions true</td>
+                            <td><span class="inline-code">a = 1 AND b = 2</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">OR</span></td>
+                            <td>Either condition true</td>
+                            <td><span class="inline-code">a = 1 OR b = 2</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">NOT</span></td>
+                            <td>Negates condition</td>
+                            <td><span class="inline-code">NOT (status = 'deleted')</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2 id="query-examples">Query Examples</h2>
+                
+                <h3>Simple Filtering</h3>
+                <div class="code-block">
+                    <pre>employees WHERE active = true</pre>
+                </div>
+                
+                <h3>Multiple Conditions</h3>
+                <div class="code-block">
+                    <pre>products WHERE price > 100 AND stock > 0 AND featured = true</pre>
+                </div>
+                
+                <h3>Pattern Matching</h3>
+                <div class="code-block">
+                    <pre>customers WHERE email LIKE '%@gmail.com' AND name LIKE 'A%'</pre>
+                </div>
+                
+                <h3>Range Queries</h3>
+                <div class="code-block">
+                    <pre>orders WHERE total BETWEEN 1000 AND 5000 AND created_date > '2024-01-01'</pre>
+                </div>
+                
+                <h3>Complex Logic</h3>
+                <div class="code-block">
+                    <pre>employees WHERE 
+    (department = 'Engineering' AND salary > 90000)
+    OR (department = 'Sales' AND commission > 50000)
+    OR (role = 'Executive')
+ORDER BY salary DESC
+LIMIT 50</pre>
+                </div>
+                
+                <h3>Field Selection</h3>
+                <div class="code-block">
+                    <pre>SELECT name, email, department 
+FROM employees 
+WHERE active = true
+ORDER BY name ASC</pre>
+                </div>
+                
+                <h3>Pagination</h3>
+                <div class="code-block">
+                    <pre>products WHERE category = 'Electronics'
+ORDER BY rating DESC
+LIMIT 20 OFFSET 40  # Page 3 (40-60)</pre>
+                </div>
+                
+                <h2 id="streaming">Streaming</h2>
+                
+                <p>For large datasets, use streaming to process data in chunks without loading everything into memory.</p>
+                
+                <h3>Basic Streaming</h3>
+                <div class="code-block">
+                    <pre>from aton_format import ATONStreamEncoder, CompressionMode
+
+# Initialize stream encoder
+stream_encoder = ATONStreamEncoder(
+    chunk_size=1000,
+    compression=CompressionMode.ULTRA
+)
+
+# Large dataset
+data = {
+    "transactions": [
+        # ... 1 million records
+    ]
+}
+
+# Stream encode
+for chunk in stream_encoder.stream_encode(data):
+    # Chunk structure
+    print(f"Chunk {chunk['chunk_id']} of {chunk['total_chunks']}")
+    print(f"First chunk: {chunk['is_first']}")
+    print(f"Last chunk: {chunk['is_last']}")
+    print(f"Records: {chunk['metadata']['records_in_chunk']}")
+    
+    # Send chunk to LLM or store
+    send_to_llm(chunk['data'])</pre>
+                </div>
+                
+                <h3>Schema Caching</h3>
+                <p>The first chunk includes schema and defaults. Subsequent chunks only contain data rows.</p>
+                
+                <div class="note">
+                    <div class="note-title">[TIP] Performance Tip</div>
+                    <p>Schema is inferred once and cached. Subsequent chunks use minimal formatting, maximizing compression.</p>
+                </div>
+                
+                <h2 id="error-handling">Error Handling</h2>
+                
+                <p>ATON V2 provides comprehensive error handling with a custom exception hierarchy.</p>
+                
+                <h3>Exception Hierarchy</h3>
+                <div class="code-block">
+                    <pre>ATONError (base)
+|-- ATONEncodingError
+|-- ATONDecodingError
+|-- ATONQueryError
+`-- ATONCompressionError</pre>
+                </div>
+                
+                <h3>Error Handling Example</h3>
+                <div class="code-block">
+                    <pre>from aton_format import (
+    ATONEncoder, 
+    ATONEncodingError, 
+    ATONDecodingError,
+    ATONQueryError
+)
+
+try:
+    encoder = ATONEncoder(validate=True)
+    result = encoder.encode(data)
+    
+except ATONEncodingError as e:
+    print(f"Encoding failed: {e}")
+    # Handle encoding error
+    
+except ATONQueryError as e:
+    print(f"Query failed: {e}")
+    # Handle query error
+    
+except Exception as e:
+    print(f"Unexpected error: {e}")
+    # Handle unexpected errors</pre>
+                </div>
+                
+                <h3>Validation</h3>
+                <div class="code-block">
+                    <pre># Enable validation (default)
+encoder = ATONEncoder(validate=True)
+
+# Validation checks:
+# - Data structure
+# - Type consistency
+# - Required fields
+# - Value ranges</pre>
+                </div>
+                
+                <h2 id="performance">Performance</h2>
+                
+                <h3>Token Reduction Benchmarks</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dataset</th>
+                            <th>JSON Tokens</th>
+                            <th>ATON Tokens</th>
+                            <th>Reduction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Employee Records (1K)</td>
+                            <td>12,450</td>
+                            <td>5,280</td>
+                            <td>57.6%</td>
+                        </tr>
+                        <tr>
+                            <td>Product Catalog (10K)</td>
+                            <td>145,200</td>
+                            <td>64,800</td>
+                            <td>55.4%</td>
+                        </tr>
+                        <tr>
+                            <td>Transaction Log (100K)</td>
+                            <td>1,856,000</td>
+                            <td>815,000</td>
+                            <td>56.1%</td>
+                        </tr>
+                        <tr>
+                            <td>Agent States (Real-time)</td>
+                            <td>42,000</td>
+                            <td>18,500</td>
+                            <td>56.0%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Compression Speed</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mode</th>
+                            <th>Records/sec</th>
+                            <th>Latency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FAST</td>
+                            <td>~50,000</td>
+                            <td>&lt;1ms</td>
+                        </tr>
+                        <tr>
+                            <td>BALANCED</td>
+                            <td>~35,000</td>
+                            <td>&lt;2ms</td>
+                        </tr>
+                        <tr>
+                            <td>ULTRA</td>
+                            <td>~20,000</td>
+                            <td>&lt;5ms</td>
+                        </tr>
+                        <tr>
+                            <td>ADAPTIVE</td>
+                            <td>~30,000</td>
+                            <td>&lt;3ms</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="note">
+                    <div class="note-title">[INFO] Benchmark Environment</div>
+                    <p>Tests performed on Apple M1 Pro, 16GB RAM, Python 3.11. Results may vary based on hardware and data characteristics.</p>
+                </div>
+                
+                <h2 id="best-practices">Best Practices</h2>
+                
+                <h3>1. Choose the Right Compression Mode</h3>
+                <div class="code-block">
+                    <pre># Real-time applications
+encoder = ATONEncoder(compression=CompressionMode.FAST)
+
+# General purpose (recommended)
+encoder = ATONEncoder(compression=CompressionMode.BALANCED)
+
+# Batch processing / storage
+encoder = ATONEncoder(compression=CompressionMode.ULTRA)
+
+# Mixed workloads
+encoder = ATONEncoder(compression=CompressionMode.ADAPTIVE)</pre>
+                </div>
+                
+                <h3>2. Use Streaming for Large Datasets</h3>
+                <div class="code-block">
+                    <pre># DON'T: Load everything in memory
+data = load_million_records()
+encoded = encoder.encode(data)  # Memory spike!
+
+# DO: Use streaming
+stream_encoder = ATONStreamEncoder(chunk_size=1000)
+for chunk in stream_encoder.stream_encode(data):
+    process_chunk(chunk)  # Constant memory!</pre>
+                </div>
+                
+                <h3>3. Leverage Query Language</h3>
+                <div class="code-block">
+                    <pre># DON'T: Send all data then filter
+all_data = encoder.encode(large_dataset)
+# LLM has to process everything...
+
+# DO: Filter before encoding
+filtered = encoder.encode_with_query(
+    large_dataset,
+    "employees WHERE salary > 100000 LIMIT 100"
+)
+# Only 100 relevant records sent!</pre>
+                </div>
+                
+                <h3>4. Enable Optimization</h3>
+                <div class="code-block">
+                    <pre># Always enable optimization for repeated structures
+encoder = ATONEncoder(
+    optimize=True,  # Enable schemas and defaults
+    compression=CompressionMode.BALANCED
+)</pre>
+                </div>
+                
+                <h3>5. Handle Errors Gracefully</h3>
+                <div class="code-block">
+                    <pre>from aton_format import ATONError
+
+try:
+    result = encoder.encode(data)
+except ATONError as e:
+    # ATON-specific errors
+    logger.error(f"ATON error: {e}")
+    fallback_to_json(data)
+except Exception as e:
+    # Unexpected errors
+    logger.critical(f"Critical error: {e}")
+    raise</pre>
+                </div>
+                
+                <h3>6. Validate in Production</h3>
+                <div class="code-block">
+                    <pre># Always validate in production
+encoder = ATONEncoder(validate=True)
+decoder = ATONDecoder(validate=True)
+
+# Round-trip test
+encoded = encoder.encode(data)
+decoded = decoder.decode(encoded)
+assert data == decoded</pre>
+                </div>
+                
+                <h3>7. Benchmark Your Data</h3>
+                <div class="code-block">
+                    <pre>import time
+
+# Test different modes
+modes = [CompressionMode.FAST, CompressionMode.BALANCED, CompressionMode.ULTRA]
+
+for mode in modes:
+    encoder = ATONEncoder(compression=mode)
+    
+    start = time.time()
+    result = encoder.encode(data)
+    duration = time.time() - start
+    
+    print(f"{mode.value}: {duration:.3f}s, {len(result)} chars")</pre>
+                </div>
+                
+                <div class="warning">
+                    <div class="warning-title">[!] Important</div>
+                    <p>Always test ATON with your specific data patterns. Token reduction and performance vary based on data characteristics.</p>
+                </div>
+                
+                <h2>Additional Resources</h2>
+                
+                <div style="margin: 40px 0;">
+                    <p>For more information, check out:</p>
+                    <ul style="margin-left: 24px; line-height: 2;">
+                        <li><a href="/whitepaper.html">Technical Whitepaper</a> - Deep dive into algorithms and benchmarks</li>
+                        <li><a href="https://github.com/dagoSte/aton-format" target="_blank">GitHub Repository</a> - Source code and examples</li>
+                        <li><a href="https://github.com/dagoSte/aton-format/issues" target="_blank">Report Issues</a> - Bug reports and feature requests</li>
+                        <li><a href="https://pypi.org/project/aton-format/" target="_blank">PyPI Package</a> - Python installation</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin: 60px 0;">
+                    <a href="https://github.com/dagoSte/aton-format" class="btn" target="_blank">
+                        View on GitHub
+                    </a>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ATON Format. Created by <a href="https://github.com/dagoSte" target="_blank" style="color: #1d1d1f; text-decoration: underline;">Stefano D'Agostino</a>.</p>
+            <p style="margin-top: 8px;">Version 2.0.0 | Licensed under MIT</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Update active link
+                    document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Highlight current section
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.sidebar a').forEach(a => {
+                        a.classList.remove('active');
+                        if (a.getAttribute('href') === `#${id}`) {
+                            a.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        document.querySelectorAll('h2[id], h3[id]').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

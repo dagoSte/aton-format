@@ -1,4 +1,4 @@
-# ATON V2.0 - Adaptive Token-Oriented Notation
+# ATON V2.0.1 - Adaptive Token-Oriented Notation
 
 [![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/dagoSte/aton-format)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -9,7 +9,7 @@
 
 ---
 
-## What's New in V2.0
+## What's New in V2.0.1
 
 ### Advanced Compression System
 - **4 Compression Modes**: Fast, Balanced, Ultra, and Adaptive
@@ -562,7 +562,7 @@ SOFTWARE.
 
 - **Author**: Stefano D'Agostino
 - **GitHub**: [@dagoSte](https://github.com/dagoSte)
-- **Email**: info@atonformat.com
+- **Email**: dago.stefano@gmail.com
 - **Website**: [https://www.atonformat.com](https://www.atonformat.com)
 
 ---

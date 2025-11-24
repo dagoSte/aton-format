@@ -1,0 +1,84 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aton-format"
+version = "2.0.1"
+description = "Advanced data serialization achieving 50-60% token reduction with Compression Modes, SQL-like Query Language, and Streaming Support for LLMs"
+readme = "README.md"
+authors = [
+    {name = "Stefano D'Agostino", email = "dago.stefano@gmail.com"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+]
+keywords = [
+    "aton",
+    "llm",
+    "token-optimization",
+    "data-serialization",
+    "compression",
+    "query-language",
+    "streaming",
+]
+requires-python = ">=3.8"
+
+[project.urls]
+Homepage = "https://www.atonformat.com"
+Documentation = "https://www.atonformat.com/documentation.html"
+Repository = "https://github.com/dagoSte/aton-format"
+"Bug Tracker" = "https://github.com/dagoSte/aton-format/issues"
+Changelog = "https://github.com/dagoSte/aton-format/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "isort>=5.12.0",
+]
+docs = [
+    "sphinx>=6.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=aton_format --cov-report=html --cov-report=term-missing"

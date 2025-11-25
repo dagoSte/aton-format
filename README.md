@@ -9,6 +9,8 @@
 
 ATON achieves **56% token reduction** compared to JSON while providing type safety, native relationships, and human readability. Perfect for RAG systems, multi-agent architectures, and any LLM-powered application.
 
+Documentation: 
+https://www.atonformat.com/documentation.html
 ---
 
 ## Core Features
